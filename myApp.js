@@ -3,11 +3,14 @@ const app = express();
 
 const helmet = require('helmet');
 
+const hstsTimeInSec = 90 * 24 * 60 * 60; // 90 days
+
 app.use(helmet.hidePoweredBy());
 app.use(helmet.frameguard({action: 'deny'}));
 app.use(helmet.xssFilter()); // not necessary when Content-Security-Policy is enabled
 app.use(helmet.noSniff());
 app.use(helmet.ieNoOpen());
+app.use(helmet.hsts({maxAge: hstsTimeInSec, force: true})); // Priotize https over http
 
 module.exports = app;
 const api = require('./server.js');
