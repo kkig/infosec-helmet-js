@@ -11,6 +11,7 @@ app.use(helmet.xssFilter()); // not necessary when Content-Security-Policy is en
 app.use(helmet.noSniff());
 app.use(helmet.ieNoOpen());
 app.use(helmet.hsts({maxAge: hstsTimeInSec, force: true})); // Priotize https over http
+app.use(helmet.dnsPrefetchControl()); // Turn off X-DNS-Prefetch-Control to priotize security over performance
 
 module.exports = app;
 const api = require('./server.js');
